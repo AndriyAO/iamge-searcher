@@ -20,11 +20,11 @@ export class UserService {
     }
 
     getUserByEmail(email: string): User {
-        return this.databaseServcie.getByKey(this.COLLECTION_NAME, 'email', email);
+        return this.databaseServcie.getByKey(this.COLLECTION_NAME, 'email', email)[0];
     }
 
     login(data: User) {
-        const user = this.databaseServcie.getByKey(this.COLLECTION_NAME, 'email', data.email);
+        const user = this.databaseServcie.getByKey(this.COLLECTION_NAME, 'email', data.email)[0];
         if (!user) {
             throw new NotFoundException('User does not exist');
         }
@@ -35,7 +35,7 @@ export class UserService {
     }
 
     private checkIfUserExist(user: User) {
-        return !!this.databaseServcie.getByKey(this.COLLECTION_NAME, 'email', user.email);
+        return !!this.databaseServcie.getByKey(this.COLLECTION_NAME, 'email', user.email)[0];
     }
 
     private comparePassword(password: string, oldPassword: string) {
