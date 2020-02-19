@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as giphyApi from'giphy-api';
 import { get } from 'lodash';
-import { SearchOptions, Image } from '../../interfaces';
+import { SearchOptions, Image, ImageResponse } from '../../interfaces';
 
 @Injectable()
 export class ImageService {
@@ -10,7 +10,7 @@ export class ImageService {
         this.client = giphyApi('QPxKSYo3WJEJFqGf2pFnTKCQJ74ttDER');
      }
 
-    async searchImages(searchOptions: SearchOptions): Promise<any> {
+    async searchImages(searchOptions: SearchOptions): Promise<ImageResponse> {
         const response = await this.client.search({ q: searchOptions.query, ...searchOptions });
         const images = this.transformImage(response);
         return {
