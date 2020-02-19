@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as giphyApi from'giphy-api';
 import { get } from 'lodash';
-import { SearchOptions, Image } from '../interfaces';
+import { SearchOptions, Image } from '../../interfaces';
 
 @Injectable()
 export class ImageService {
