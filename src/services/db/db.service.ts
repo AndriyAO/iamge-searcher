@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataStore } from 'notarealdb';
-import { find } from 'lodash';
+import { find, findAll } from 'lodash';
 import { Image, User, History } from 'src/interfaces';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class DbService {
     getByKey(collection: string, key: string, value: string) {
         const searchOption = {};
         searchOption[key] = value;
-        return find(this.getAll(collection), searchOption);
+        return this.getAll(collection).filter(item => item[key] === value);
     }
 
     getAll(collection) {
