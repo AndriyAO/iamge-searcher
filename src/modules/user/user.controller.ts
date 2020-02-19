@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, BadRequestException, NotFoundException, HttpException } from '@nestjs/common';
 import { User } from 'src/interfaces';
 import { UserService } from './user.service';
 
@@ -11,7 +11,7 @@ export class UserController {
         if (!user.email && !user.password) {
             throw new BadRequestException('Email or password is missing');
         }
-        return this.userService.createUser(user);
+        return this.userService.createUser(user);            
     }
 
     @Get(':id')
