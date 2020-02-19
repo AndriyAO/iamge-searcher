@@ -25,6 +25,7 @@
     "@nestjs/platform-express": "^6.10.14",
     "giphy-api": "^2.0.1",
     "lodash": "^4.17.15",
+    "notarealdb": "^0.2.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.4"
