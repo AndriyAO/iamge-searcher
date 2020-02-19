@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataStore } from 'notarealdb';
 import { find } from 'lodash';
-import { Image, User } from 'src/interfaces';
+import { Image, User, History } from 'src/interfaces';
 
 @Injectable()
 export class DbService {
