@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { DbService } from 'src/services/db/db.service';
 import { History } from 'src/interfaces';
 
@@ -10,5 +10,9 @@ export class HistoryService {
 
     createHistory(data: History) {
         return this.databaseService.create(this.COLLECTION_NAME, data);
+    }
+
+    getHistoryByUserId(userId: string) {
+        return this.databaseService.getByKey(this.COLLECTION_NAME, 'userId', userId);
     }
 }
