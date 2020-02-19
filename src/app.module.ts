@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { ImageService } from './image/image.service';
-import { ImageController } from './image/image.controller';
-import { HistoryController } from './history/history.controller';
-import { HistoryService } from './history/history.service';
+import { ImageModule } from './modules/image/image.module';
+import { UserModule } from './modules/user/user.module';
+import { DbService } from './services/db/db.service';
 
 @Module({
-  imports: [],
-  controllers: [AppController, ImageController, HistoryController],
-  providers: [ImageService, HistoryService],
+  imports: [ImageModule, UserModule],
+  controllers: [AppController],
+  providers: [DbService],
 })
 export class AppModule {}
