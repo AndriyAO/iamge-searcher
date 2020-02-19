@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Query, HttpException } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, BadRequestException, NotFoundException } from '@nestjs/common';
 import { User } from 'src/interfaces';
 import { UserService } from './user.service';
 
@@ -6,20 +6,27 @@ import { UserService } from './user.service';
 export class UserController {
     constructor(private userService: UserService) { }
 
-    @Post()
-    createUser(@Body() user: User) {
+    @Post('register')
+    createUser(@Body() user: User): User {
+        if (!user.email && !user.password) {
+            throw new BadRequestException('Email or password is missing');
+        }
         return this.userService.createUser(user);
     }
 
     @Get(':id')
     getUserById(@Param('id') id): User {
-        return this.userService.getUserById(id);
+        const user = this.userService.getUserById(id);
+        if (!user) {
+            throw new NotFoundException('User does not exist.');
+        }
+        return user;
     }
 
     @Post('login')
-    login(@Body() user: User) {
+    login(@Body() user: User): User {
         if (!user.email && !user.password) {
-            throw new HttpException('Email or password is missing', 400);
+            throw new BadRequestException('Email or password is missing');
         }
         return this.userService.login(user);
     }

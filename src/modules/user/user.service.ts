@@ -1,4 +1,4 @@
-import { Injectable, HttpException, ForbiddenException, NotFoundException } from '@nestjs/common';
+import { Injectable, HttpException, ForbiddenException, NotFoundException, BadRequestException } from '@nestjs/common';
 import { User } from 'src/interfaces';
 import { DbService } from 'src/services/db/db.service';
 
@@ -19,12 +19,11 @@ export class UserService {
 
     login(data: User) {
         const user = this.databaseServcie.getByKey('user', 'email', data.email);
-        console.log(user, data)
         if (!user) {
-            throw new NotFoundException('User does not exist');
+            throw new Error('User does not exist');
         }
         if (!this.comparePassword(data.password, user.password)) {
-            throw new ForbiddenException();
+            throw new Error('Forbidden');
         }
         return user;         
     }
