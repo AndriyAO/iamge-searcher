@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataStore } from 'notarealdb';
-import { find, findAll } from 'lodash';
-import { Image, User, History } from 'src/interfaces';
+import { Image, User, History, Like } from 'src/interfaces';
 
 @Injectable()
 export class DbService {
@@ -10,11 +9,11 @@ export class DbService {
         this.store = new DataStore('./')
     }
 
-    create(collection: string, data: User | Image | History) {
+    create(collection: string, data: User | Like | History): string {
         return this.store.collection(collection).create(data);
     }
 
-    update(collection: string, data: User | Image | History) {
+    update(collection: string, data: User | Like | History) {
         return this.store.collection(collection).update(data);
     }
 
@@ -23,7 +22,7 @@ export class DbService {
     }
 
     delete(collection: string, id: string) {
-        return this.store.collection(collection).delete(id);
+        return this.store.collection(collection).update({ id, is_delete: true});
     }
 
     getByKey(collection: string, key: string, value: string) {
