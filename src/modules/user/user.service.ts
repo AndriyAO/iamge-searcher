@@ -1,15 +1,16 @@
-import { Injectable, NotAcceptableException, NotFoundException, ForbiddenException } from '@nestjs/common';
+import { Injectable, NotAcceptableException, Inject, forwardRef } from '@nestjs/common';
 import { User } from 'src/interfaces';
 import { DbService } from '../../services/db/db.service';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UserService {
-    private readonly COLLECTION_NAME = 'user';
+    private readonly COLLECTION_NAME = process.env.COLLECTION_USERS;
 
     constructor(
-        private databaseService: DbService,
+        @Inject(forwardRef(() => AuthService))
         private authService: AuthService,
+        private databaseService: DbService
         ) { }
     
     createUser(data: User) {
@@ -34,22 +35,15 @@ export class UserService {
     }
 
     login(data: User) {
-        const user = this.databaseService.getByKey(this.COLLECTION_NAME, 'email', data.email)[0];
-        if (!user) {
-            throw new NotFoundException('User does not exist');
+        const token = this.authService.login(data);
+        return {
+            ...data,
+            ...token,
         }
-        if (!this.comparePassword(data.password, user.password)) {
-            throw new ForbiddenException('Forbidden');
-        }
-        return user;         
     }
 
     private checkIfUserExist(user: User) {
         return !!this.databaseService.getByKey(this.COLLECTION_NAME, 'email', user.email)[0] && 
         !!this.databaseService.getByKey(this.COLLECTION_NAME, 'username', user.username)[0];
-    }
-
-    private comparePassword(password: string, oldPassword: string) {
-        return password === oldPassword;
     }
 }
