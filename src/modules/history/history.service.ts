@@ -1,5 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { DbService } from 'src/services/db/db.service';
+import { Injectable } from '@nestjs/common';
+import { DbService } from '../../services/db/db.service';
 import { History } from 'src/interfaces';
 
 @Injectable()

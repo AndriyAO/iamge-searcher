@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as giphyApi from'giphy-api';
 import { get, some } from 'lodash';
 import { SearchOptions, Image, ImageResponse, Like } from '../../interfaces';
-import { DbService } from 'src/services/db/db.service';
+import { DbService } from '../../services/db/db.service';
 
 @Injectable()
 export class ImageService {

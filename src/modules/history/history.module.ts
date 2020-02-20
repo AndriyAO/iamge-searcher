@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DbService } from 'src/services/db/db.service';
+import { DbService } from '../../services/db/db.service';
 import { HistoryController } from './history.controller';
 import { HistoryService } from './history.service';
 
