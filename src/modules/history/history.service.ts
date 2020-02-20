@@ -4,7 +4,7 @@ import { History } from 'src/interfaces';
 
 @Injectable()
 export class HistoryService {
-    private readonly COLLECTION_NAME = 'history';
+    private readonly COLLECTION_NAME = process.env.COLLECTION_HISTORY;
 
     constructor(private databaseService: DbService) { }
 
