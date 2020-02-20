@@ -1,5 +1,5 @@
 export interface SearchOptions {
-    query: string;
+    q: string;
     limit: number;
     offset: number;
 }
