@@ -8,13 +8,7 @@ export class HistoryController {
     constructor(private historyService: HistoryService) { }
 
     @UseGuards(JwtAuthGuard)
-    @Post()
-    createHistory(@Body() data: History) {
-        return this.historyService.createHistory(data);
-    }
-
-    @UseGuards(JwtAuthGuard)
-    @Get('user/:id')
+    @Get()
     getHistoryByUserId(@Param('id') id) {
         return this.historyService.getHistoryByUserId(id);
     }
