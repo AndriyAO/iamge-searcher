@@ -6,15 +6,15 @@ import { DbService } from '../../services/db/db.service';
 
 @Injectable()
 export class ImageService {
-    private readonly COLLECTION_NAME = 'likes';
+    private readonly COLLECTION_NAME = process.env.COLLECTION_LIKES;
 
     private client;
     constructor(private databaseService: DbService) {
-        this.client = giphyApi('QPxKSYo3WJEJFqGf2pFnTKCQJ74ttDER'); // move to env
+        this.client = giphyApi(process.env.GIF_API_KEY);
      }
 
     async searchImages(searchOptions: SearchOptions, userId: string): Promise<ImageResponse> {
-        const response = await this.client.search({ q: searchOptions.query, ...searchOptions });
+        const response = await this.client.search({ ...searchOptions });
         const images = this.transformImage(response, userId);
         return {
             images,
