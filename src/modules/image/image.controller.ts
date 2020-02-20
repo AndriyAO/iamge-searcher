@@ -2,10 +2,14 @@ import { Controller, Get, Query, Post, Param, NotAcceptableException, Request, U
 import { get } from 'lodash';
 import { ImageService } from './image.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { HistoryService } from '../history/history.service';
 
 @Controller('image')
 export class ImageController {
-    constructor(private imageService: ImageService) {}
+    constructor(
+        private imageService: ImageService,
+        private historyService: HistoryService,
+        ) {}
 
     @UseGuards(JwtAuthGuard)
     @Get()
@@ -23,6 +27,7 @@ export class ImageController {
             offset: offset || 0, 
             limit: limit || 15
         };
+        this.historyService.createHistory(req.user.id, query);
         return this.imageService.searchImages(searchOption, req.user.userId);
     }
 
