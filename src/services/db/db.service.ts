@@ -6,7 +6,7 @@ import { Image, User, History, Like } from 'src/interfaces';
 export class DbService {
     private store;
     constructor() {
-        this.store = new DataStore('./')
+        this.store = new DataStore(process.env.DATA_STORAGE)
     }
 
     create(collection: string, data: User | Like | History): string {
