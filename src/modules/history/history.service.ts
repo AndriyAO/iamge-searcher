@@ -8,7 +8,11 @@ export class HistoryService {
 
     constructor(private databaseService: DbService) { }
 
-    createHistory(data: History) {
+    createHistory(userId: string, query: string) {
+        const data: History = {
+            userId,
+            query,
+        };
         return this.databaseService.create(this.COLLECTION_NAME, data);
     }
 
