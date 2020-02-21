@@ -1,2 +1,2 @@
-# iamge-searcher
+# image-searcher
 Backend part
