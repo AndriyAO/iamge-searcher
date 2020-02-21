@@ -18,7 +18,6 @@ export class UserService {
             throw new NotAcceptableException('User already exist');
         }
         const userId = this.databaseService.create(this.COLLECTION_NAME, data);
-        const user = this.databaseService.getById(this.COLLECTION_NAME, userId);
         return this.databaseService.getById(this.COLLECTION_NAME, userId);        
     }
 

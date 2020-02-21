@@ -11,8 +11,8 @@ import { LocalStrategy } from './strategies/local.strategy';
     forwardRef(() => UserModule),
     PassportModule,
     JwtModule.register({
-      secret: 'jwtConstants.secret', // move to env
-      signOptions: { expiresIn: '60s' },
+      secret: process.env.JWT_SECRET_KEY,
+      signOptions: { expiresIn: '6000s' },
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
