@@ -5,14 +5,13 @@ import { UserModule } from '../user/user.module';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
-import { JWT_SECRET_KEY } from './constants';
 
 @Module({
   imports: [
     forwardRef(() => UserModule),
     PassportModule,
     JwtModule.register({
-      secret: JWT_SECRET_KEY,
+      secret: process.env.JWT_SECRET_KEY,
       signOptions: { expiresIn: '6000s' },
     }),
   ],
