@@ -8,7 +8,7 @@ export class HistoryService {
 
     constructor(private databaseService: DbService) { }
 
-    createHistory(userId: string, query: string) {
+    createHistory(userId: string, query: string): string {
         const data: History = {
             userId,
             query,
@@ -16,7 +16,7 @@ export class HistoryService {
         return this.databaseService.create(this.COLLECTION_NAME, data);
     }
 
-    getHistoryByUserId(userId: string) {
+    getHistoryByUserId(userId: string): History[] {
         return this.databaseService.getByKey(this.COLLECTION_NAME, 'userId', userId);
     }
 }

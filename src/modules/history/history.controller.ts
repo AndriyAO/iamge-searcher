@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request } from '@nestjs/common';
 import { History } from 'src/interfaces';
 import { HistoryService } from './history.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -9,7 +9,7 @@ export class HistoryController {
 
     @UseGuards(JwtAuthGuard)
     @Get()
-    getHistoryByUserId(@Param('id') id) {
-        return this.historyService.getHistoryByUserId(id);
+    getHistoryByUserId(@Request() req): History[] {
+        return this.historyService.getHistoryByUserId(req.user.userId);
     }
 }
