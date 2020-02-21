@@ -27,7 +27,7 @@ export class ImageController {
             offset: offset || 0, 
             limit: limit || 15
         };
-        this.historyService.createHistory(req.user.id, query);
+        this.historyService.createHistory(req.user.userId, query);
         return this.imageService.searchImages(searchOption, req.user.userId);
     }
 
